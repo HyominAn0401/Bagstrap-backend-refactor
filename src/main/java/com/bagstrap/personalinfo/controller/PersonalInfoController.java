@@ -2,15 +2,13 @@ package com.bagstrap.personalinfo.controller;
 
 import com.bagstrap.personalinfo.dto.request.PersonalInfoRequestDto;
 import com.bagstrap.personalinfo.dto.response.PersonalInfoResponseDto;
+import com.bagstrap.personalinfo.entity.PersonalInfo;
 import com.bagstrap.personalinfo.service.PersonalInfoService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -32,5 +30,14 @@ public class PersonalInfoController {
         }
     }
 
+    @GetMapping("/personal-info/{userId}")
+    public ResponseEntity<?> getPersonalInfo(@PathVariable Long userId){
+        try{
+            PersonalInfoResponseDto personalInfoResponseDto = personalInfoService.getPersonalInfo(userId);
 
+            return ResponseEntity.ok(personalInfoResponseDto);
+        } catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"status\": \"ERROR\", \"message\": \""+ e.getMessage()+"\" }");
+        }
+    }
 }
