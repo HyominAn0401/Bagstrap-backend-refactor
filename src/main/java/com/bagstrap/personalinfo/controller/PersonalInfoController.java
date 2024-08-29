@@ -40,4 +40,18 @@ public class PersonalInfoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"status\": \"ERROR\", \"message\": \""+ e.getMessage()+"\" }");
         }
     }
+
+    @PutMapping("/personal-info/{userId}")
+    public ResponseEntity<?> updatePersonalInfo(@PathVariable Long userId, @RequestBody PersonalInfoRequestDto personalInfoRequestDto){
+        try{
+            //service
+            personalInfoService.updatePersonalInfo(userId, personalInfoRequestDto);
+
+            // 성공 시
+            return ResponseEntity.ok().body("{ \"status\": \"OK\" }");
+        }
+        catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"status\": \"ERROR\", \"message\": \""+e.getMessage()+"\" }");
+        }
+    }
 }
