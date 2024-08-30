@@ -8,6 +8,7 @@ import com.bagstrap.personalinfo.repository.PersonalInfoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -89,5 +90,17 @@ public class PersonalInfoService {
         personalInfo1.setWebsite(personalInfoRequestDto.getWebsite());
 
         personalInfoRepository.save(personalInfo1);
+    }
+
+    @Transactional
+    public void deletePersonalInfo(Long userId){
+        // 1 대상 찾기
+        PersonalInfo personalInfo1 = personalInfoRepository.findById(userId).orElse(null);
+        // 2. 잘못된 요청 처리
+        if(personalInfo1 == null){
+            throw new IllegalArgumentException("사용자가 없습니다: "+userId);
+        }
+        // 3. 대상 삭제
+        personalInfoRepository.delete(personalInfo1);
     }
 }

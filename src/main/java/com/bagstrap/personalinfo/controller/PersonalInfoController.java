@@ -54,4 +54,16 @@ public class PersonalInfoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"status\": \"ERROR\", \"message\": \""+e.getMessage()+"\" }");
         }
     }
+
+    @DeleteMapping("/personal-info/{userId}")
+    public ResponseEntity<?> deletePersonalInfo(@PathVariable Long userId){
+        try{
+            // service
+            personalInfoService.deletePersonalInfo(userId);
+            return ResponseEntity.ok("{ \"status\": \"OK\" }");
+        }
+        catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \"status\": \"ERROR\", \"message\": \""+e.getMessage()+"\" }");
+        }
+    }
 }
