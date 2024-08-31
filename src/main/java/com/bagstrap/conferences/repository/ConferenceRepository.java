@@ -1,4 +1,7 @@
 package com.bagstrap.conferences.repository;
 
-public interface ConferenceRepository {
+import com.bagstrap.conferences.entity.Conference;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ConferenceRepository extends JpaRepository<Conference, Long> {
 }

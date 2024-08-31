@@ -1,5 +1,6 @@
 package com.bagstrap.conferences.dto.request;
 
+import com.bagstrap.conferences.entity.Conference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,16 @@ public class ConferenceRequestDto {
     private ConferenceLocation conferenceLocation;
     private AttendanceType attendanceType;
 
+
+    //Dto -> Entity
+    public Conference toEntity(){
+        return new Conference(
+                conferenceTitle,
+                conferenceName,
+                authors,
+                attendDate,
+                conferenceLocation,
+                attendanceType
+        );
+    }
 }

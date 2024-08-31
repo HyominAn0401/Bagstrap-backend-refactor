@@ -25,7 +25,7 @@ public class PersonalInfoController {
 
             // success
             return ResponseEntity.ok().body(" \"status\": \"OK\" }");
-        } catch (Exception e){
+        } catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ \status\": \"ERROR\", \"message\": \""+e.getMessage());
         }
     }
