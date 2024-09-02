@@ -27,9 +27,19 @@ public class ResearchExperience {
     private String department;
     private String country;
 
+    // hibernate 충돌
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "year", column = @Column(name = "start_year")),
+            @AttributeOverride(name = "month", column = @Column(name = "start_month"))
+    })
     private DatePeriod startDate;
+
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "year", column = @Column(name = "end_year")),
+            @AttributeOverride(name = "month", column = @Column(name = "end_month"))
+    })
     private DatePeriod endDate;
     private boolean isCurrentlyEmployed;
     private String roleDescription;
